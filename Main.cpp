@@ -24,7 +24,7 @@ int main()
 				std::getline(std::cin, temp, '\n');
 				alg_choice = std::stoi(temp);
 			}
-			catch (...) { alg_choice = 1; }
+			catch (...) { std::cout << "Please enter a value between 1 and 3" << std::endl; }
 		} while (alg_choice < 1 || alg_choice > 3);
 		std::cout << "Enter preferred length of randomly generated list (10): "; 
 		try {
@@ -38,13 +38,19 @@ int main()
 			std::getline(std::cin, temp, '\n');
 			min_val = std::stoi(temp);
 		} catch (...) {}
-		std::cout << "Enter maximum value that can appear in list (100): ";
-		try {
-			std::string temp;
-			std::getline(std::cin, temp, '\n');
-			max_val = std::stoi(temp);
-		}
-		catch (...) {}
+		do
+		{
+			std::cout << "Enter maximum value that can appear in list (100): ";
+			try {
+				std::string temp;
+				std::getline(std::cin, temp, '\n');
+				max_val = std::stoi(temp);
+				if (max_val <= min_val) {
+					std::cout << "Maximum value must be greater than the minimum value" << std::endl;
+				}
+			}
+			catch (...) { max_val = 100; }
+		} while (max_val <= min_val);
 
 		auto nums = GenerateNumberList(ls_length, min_val, max_val);
 		
@@ -85,7 +91,7 @@ template<typename T>
 auto OutputVec(const std::vector<T>& vec) -> void
 {
 	std::cout << "{ ";
-	for (int i{ 0 }; i < vec.size(); i++)
+	for (unsigned int i{ 0 }; i < vec.size(); i++)
 	{
 		std::cout << vec.at(i) << ((i != vec.size() - 1) ? ", " : " }");
 	}
