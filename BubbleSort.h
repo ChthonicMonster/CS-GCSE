@@ -4,11 +4,11 @@
 #include <iostream>
 
 template<typename T>
-void BubbleSort(std::vector<T>* unsorted)
+auto BubbleSort(std::vector<T>* unsorted) -> void
 {
 	int count = 0;
 
-	for (int i{ 0 }; i < unsorted->size() - 1; i++)
+	for (unsigned int i{ 0 }; i < unsorted->size() - 1; i++)
 	{
 		if (unsorted->at(i) > unsorted->at(i + 1))
 		{
@@ -24,12 +24,8 @@ void BubbleSort(std::vector<T>* unsorted)
 }
 
 template<typename T>
-void OutputVec(const std::vector<T>& vec)
+auto BubbleSort(std::vector<T>& unsorted) -> std::vector<T>
 {
-	std::cout << "{ ";
-	for (const auto& item : vec)
-	{
-		std::cout << item << ((item != vec.back()) ? ", " : " }");
-	}
-	std::cout << std::endl;
+	BubbleSort(&unsorted);
+	return unsorted;
 }
